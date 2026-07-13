@@ -1,5 +1,7 @@
 class Solution(object):
     def isAnagram(self, s, t):
+        if len(s) != len(t) :
+            return False
         d1 = {}
         d2 = {}
         for a in s:
