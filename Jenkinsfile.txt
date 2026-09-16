@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t greatest-app:latest .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                    docker rm -f greatest-container || true
+                    docker run -d --name greatest-container greatest-app:latest
+                '''
+            }
+        }
+
+        stage('Display Docker Info') {
+            steps {
+                sh 'docker images'
+                sh 'docker ps -a'
+            }
+        }
+    }
+}
