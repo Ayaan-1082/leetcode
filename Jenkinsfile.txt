@@ -19,7 +19,9 @@ pipeline {
             steps {
                 sh '''
                     docker rm -f greatest-container || true
-                    docker run -d --name greatest-container greatest-app:latest
+                    echo "===== Running with numbers 5, 10, 3 ====="
+                    docker run --name greatest-container greatest-app:latest 5 10 3
+                    echo "===== Run complete ====="
                 '''
             }
         }
